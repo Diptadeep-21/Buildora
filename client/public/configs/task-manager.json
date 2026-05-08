@@ -1,0 +1,33 @@
+{
+  "appName": "Task Manager",
+  "entities": [
+    {
+      "name": "tasks",
+      "fields": [
+        {
+          "name": "title",
+          "label": "Task Title",
+          "type": "text",
+          "required": true,
+          "placeholder": "Enter task title"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "textarea"
+        },
+        {
+          "name": "priority",
+          "label": "Priority",
+          "type": "select",
+          "options": ["Low", "Medium", "High"]
+        },
+        {
+          "name": "completed",
+          "label": "Completed",
+          "type": "checkbox"
+        }
+      ]
+    }
+  ]
+}
