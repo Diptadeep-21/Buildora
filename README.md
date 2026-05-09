@@ -265,17 +265,13 @@ npm run dev
 
 Deploy on:
 
-- Vercel
 - Render
-- Netlify
 
 ## Backend
 
 Deploy on:
 
 - Render
-- Railway
-- Cyclic
 
 ---
 
