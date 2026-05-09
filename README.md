@@ -2,7 +2,7 @@
 
 <p align="center">
 
-  <img src="./docs/screenshots/landing-pg.png" alt="AIForge Banner" width="100%" />
+  <img src="./docs/screenshots/landing-pg.png" alt="Buildora Banner" width="100%" />
 
 </p>
 
@@ -16,7 +16,7 @@
 
 <p align="center">
 
-  AIForge transforms natural language + JSON schemas into powerful internal tools with dynamic forms, tables, dashboards, CSV import/export, and runtime-generated pages.
+  Buildora transforms natural language + JSON schemas into powerful internal tools with dynamic forms, tables, dashboards, CSV import/export, and runtime-generated pages.
 
 </p>
 
@@ -181,7 +181,7 @@ Users can describe applications using prompts.
 # 📂 Project Structure
 
 ```bash
-AIForge/
+Buildora/
 │
 ├── client/
 │   ├── app/
@@ -208,7 +208,7 @@ AIForge/
 ## 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/aiforge.git
+git clone https://github.com/yourusername/Buildora.git
 ```
 
 ---
@@ -318,4 +318,4 @@ Buildora is inspired by the future of:
 
 # 📜 License
 
-MIT License © 2026 AIForge
+MIT License © 2026 Buildora
