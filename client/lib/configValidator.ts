@@ -1,55 +1,48 @@
-import { AppConfig } from "@/types/config.types";
+import {
+  AppConfig,
+} from "@/types/config.types";
 
 export const validateConfig = (
   config: AppConfig
 ) => {
+
   if (!config.appName) {
+
     throw new Error(
-      "App name is required"
+      "App name required"
     );
   }
 
   if (
-    !config.entities ||
-    !Array.isArray(config.entities)
+    !config.pages ||
+    !Array.isArray(
+      config.pages
+    )
   ) {
+
     throw new Error(
-      "Entities array missing"
+      "Pages missing"
     );
   }
 
-  config.entities.forEach(
-    (entity) => {
-      if (!entity.name) {
+  config.pages.forEach(
+    (page) => {
+
+      if (!page.route) {
+
         throw new Error(
-          "Entity name missing"
+          "Page route missing"
         );
       }
 
       if (
-        !entity.fields ||
-        !Array.isArray(entity.fields)
+        !page.entities
       ) {
+
         throw new Error(
-          `Fields missing in ${entity.name}`
+          "Entities missing"
         );
       }
-
-      entity.fields.forEach(
-        (field) => {
-          if (!field.name) {
-            throw new Error(
-              "Field name missing"
-            );
-          }
-
-          if (!field.type) {
-            throw new Error(
-              `Field type missing for ${field.name}`
-            );
-          }
-        }
-      );
     }
   );
 

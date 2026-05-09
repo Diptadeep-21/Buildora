@@ -1,0 +1,4 @@
+title,description,priority,completed
+Learn Next.js,Build frontend,High,true
+Setup Backend,Connect PostgreSQL,Medium,false
+Deploy App,Push to production,High,false

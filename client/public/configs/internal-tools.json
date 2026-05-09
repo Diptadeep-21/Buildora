@@ -1,0 +1,64 @@
+{
+  "appName": "Internal Tools Platform",
+
+  "pages": [
+
+    {
+      "name": "Tasks",
+
+      "route": "tasks",
+
+      "entities": [
+        {
+          "name": "tasks",
+
+          "fields": [
+            {
+              "name": "title",
+              "label": "Task Title",
+              "type": "text"
+            },
+
+            {
+              "name": "priority",
+              "label": "Priority",
+              "type": "select",
+
+              "options": [
+                "Low",
+                "Medium",
+                "High"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "name": "Employees",
+
+      "route": "employees",
+
+      "entities": [
+        {
+          "name": "employees",
+
+          "fields": [
+            {
+              "name": "name",
+              "label": "Employee Name",
+              "type": "text"
+            },
+
+            {
+              "name": "department",
+              "label": "Department",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
