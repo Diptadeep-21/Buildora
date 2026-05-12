@@ -1,0 +1,66 @@
+{
+  "appName": "AI CRM Platform",
+
+  "pages": [
+    {
+      "name": "Customers",
+
+      "entities": [
+        {
+          "name": "Customer",
+
+          "fields": [
+            {
+              "name": "name",
+              "type": "text",
+              "required": true
+            },
+            {
+              "name": "email",
+              "type": "email",
+              "required": true
+            },
+            {
+              "name": "company",
+              "type": "text"
+            },
+            {
+              "name": "status",
+              "type": "select",
+              "options": [
+                "Active",
+                "Pending",
+                "Inactive"
+              ]
+            },
+            {
+              "name": "revenue",
+              "type": "number"
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "name": "Analytics",
+
+      "entities": [
+        {
+          "name": "Reports",
+
+          "fields": [
+            {
+              "name": "month",
+              "type": "text"
+            },
+            {
+              "name": "sales",
+              "type": "number"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -5,111 +5,113 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import {
-  loginUser,
+    loginUser,
 } from "@/services/auth.service";
 
 import { useAuth } from "@/hooks/useAuth";
 
 export default function LoginPage() {
 
-  const router = useRouter();
+    const router = useRouter();
 
-  const { login } = useAuth();
+    const { login } = useAuth();
 
-  const [email, setEmail] =
-    useState("");
+    const [email, setEmail] =
+        useState("");
 
-  const [password, setPassword] =
-    useState("");
+    const [password, setPassword] =
+        useState("");
 
-  const handleLogin =
-    async (
-      e: React.FormEvent
-    ) => {
+    const handleLogin =
+        async (
+            e: React.FormEvent
+        ) => {
 
-      e.preventDefault();
+            e.preventDefault();
 
-      try {
+            try {
 
-        const data =
-          await loginUser(
-            email,
-            password
-          );
+                const data =
+                    await loginUser(
+                        email,
+                        password
+                    );
 
-        /*
-          SAVE TOKEN
-        */
+                /*
+                  SAVE TOKEN
+                */
 
-        login(data.token);
+                console.log("LOGIN RESPONSE:", data);
 
-        /*
-          REDIRECT
-        */
+                login(data.token);
 
-        router.push(
-          "/dashboard"
-        );
+                /*
+                  REDIRECT
+                */
 
-      } catch (error: any) {
+                router.push(
+                    "/dashboard"
+                );
 
-        alert(
-          error.response?.data
-            ?.message ||
-            "Login failed"
-        );
-      }
-    };
+            } catch (error: any) {
 
-  return (
-    <main className="min-h-screen flex items-center justify-center bg-slate-950 text-white">
+                alert(
+                    error.response?.data
+                        ?.message ||
+                    "Login failed"
+                );
+            }
+        };
 
-      <form
-        onSubmit={
-          handleLogin
-        }
-        className="bg-slate-900 p-8 rounded-xl w-full max-w-md space-y-6"
-      >
+    return (
+        <main className="min-h-screen flex items-center justify-center bg-slate-950 text-white">
 
-        <h1 className="text-3xl font-bold">
-          Login
-        </h1>
+            <form
+                onSubmit={
+                    handleLogin
+                }
+                className="bg-slate-900 p-8 rounded-xl w-full max-w-md space-y-6"
+            >
 
-        <input
-          type="email"
-          placeholder="Email"
+                <h1 className="text-3xl font-bold">
+                    Login
+                </h1>
 
-          value={email}
+                <input
+                    type="email"
+                    placeholder="Email"
 
-          onChange={(e) =>
-            setEmail(
-              e.target.value
-            )
-          }
-        />
+                    value={email}
 
-        <input
-          type="password"
-          placeholder="Password"
+                    onChange={(e) =>
+                        setEmail(
+                            e.target.value
+                        )
+                    }
+                />
 
-          value={password}
+                <input
+                    type="password"
+                    placeholder="Password"
 
-          onChange={(e) =>
-            setPassword(
-              e.target.value
-            )
-          }
-        />
+                    value={password}
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 py-3 rounded-lg"
-        >
-          Login
-        </button>
+                    onChange={(e) =>
+                        setPassword(
+                            e.target.value
+                        )
+                    }
+                />
 
-      </form>
+                <button
+                    type="submit"
+                    className="w-full bg-blue-600 py-3 rounded-lg"
+                >
+                    Login
+                </button>
 
-    </main>
-  );
+            </form>
+
+        </main>
+    );
 }

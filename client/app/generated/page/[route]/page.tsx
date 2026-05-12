@@ -1,11 +1,11 @@
 "use client";
 
 import {
-  useParams,
+    useParams,
 } from "next/navigation";
 
 import {
-  useAppConfig,
+    useAppConfig,
 } from "@/context/AppConfigContext";
 
 import DynamicForm from "@/components/dynamic/DynamicForm";
@@ -15,83 +15,92 @@ import DynamicTable from "@/components/dynamic/DynamicTable";
 import DynamicSidebar from "@/components/layout/DynamicSidebar";
 
 import {
-  useState,
+    useState,
 } from "react";
 
 export default function GeneratedPage() {
 
-  const params =
-    useParams();
+    const params =
+        useParams();
 
-  const { config } =
-    useAppConfig();
+    const { config } =
+        useAppConfig();
 
-  const [records, setRecords] =
-    useState<any[]>([]);
+    const [records, setRecords] =
+        useState<any[]>([]);
 
-  if (!config) {
+    if (!config) {
+
+        return (
+            <div className="p-10 text-white">
+                No app loaded
+            </div>
+        );
+    }
+
+    const page =
+        config.pages.find(
+            (p: any) =>
+                p.route ===
+                params.route
+        );
+
+    if (!page) {
+
+        return (
+            <div className="p-10 text-white">
+                Page not found
+            </div>
+        );
+    }
+
+    const entity =
+        page.entities[0];
 
     return (
-      <div className="p-10 text-white">
-        No app loaded
-      </div>
-    );
-  }
+        <div className="flex min-h-screen bg-slate-950 text-white">
 
-  const page =
-    config.pages.find(
-      (p: any) =>
-        p.route ===
-        params.route
-    );
+            <DynamicSidebar
+                pages={config.pages}
+            />
 
-  if (!page) {
+            <main className="flex-1 p-8">
 
-    return (
-      <div className="p-10 text-white">
-        Page not found
-      </div>
-    );
-  }
+                <h1 className="text-4xl font-bold mb-8">
+                    {page.name}
+                </h1>
 
-  const entity =
-    page.entities[0];
+                <div className="grid md:grid-cols-2 gap-8">
 
-  return (
-    <div className="flex min-h-screen bg-slate-950 text-white">
+                    <DynamicForm
+                        entity={entity}
 
-      <DynamicSidebar
-        pages={config.pages}
-      />
+                        onSubmit={(
+                            entityName,
+                            data
+                        ) => {
 
-      <main className="flex-1 p-8">
+                            console.log(
+                                entityName,
+                                data
+                            );
 
-        <h1 className="text-4xl font-bold mb-8">
-          {page.name}
-        </h1>
+                            setRecords((prev) => [
+                                ...prev,
+                                data,
+                            ]);
+                        }}
+                    />
 
-        <div className="grid md:grid-cols-2 gap-8">
+                    <DynamicTable
+                        entity={entity}
+                        records={records}
+                    />
 
-          <DynamicForm
-            entity={entity}
+                </div>
 
-            onSubmit={(data) =>
-              setRecords((prev) => [
-                ...prev,
-                data,
-              ])
-            }
-          />
-
-          <DynamicTable
-            entity={entity}
-            records={records}
-          />
+            </main>
 
         </div>
-
-      </main>
-
-    </div>
-  );
+    );
 }

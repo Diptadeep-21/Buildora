@@ -10,12 +10,25 @@ export const saveConfig =
     config: any
   ) => {
 
+    const token =
+      localStorage.getItem(
+        "token"
+      );
+
     const response =
       await API.post(
         "/configs",
+
         {
           name,
           config,
+        },
+
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`,
+          },
         }
       );
 
@@ -29,22 +42,51 @@ export const saveConfig =
 export const getConfigs =
   async () => {
 
+    const token =
+      localStorage.getItem(
+        "token"
+      );
+
     const response =
       await API.get(
-        "/configs"
+        "/configs",
+
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`,
+          },
+        }
       );
 
     return response.data;
   };
 
-  export const deleteConfig =
+/*
+  DELETE CONFIG
+*/
+
+export const deleteConfig =
   async (
     id: string
   ) => {
 
+    const token =
+      localStorage.getItem(
+        "token"
+      );
+
     const response =
       await API.delete(
-        `/configs/${id}`
+
+        `/configs/${id}`,
+
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`,
+          },
+        }
       );
 
     return response.data;

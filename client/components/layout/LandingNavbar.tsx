@@ -1,119 +1,52 @@
 "use client";
 
 import Link from "next/link";
-
-import {
-    Sparkles,
-} from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 export default function LandingNavbar() {
+  return (
+    <header className="fixed top-0 left-0 w-full z-50 bg-[#09090b]/80 backdrop-blur-md border-b border-[#1f1f23]">
+      <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
 
-    return (
-
-        <header className="fixed top-0 left-0 w-full z-50 flex justify-center pt-5 py-6">
-
-            <div className="w-[95%] max-w-7xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-lg rounded-3xl px-12 h-24 flex items-center justify-between">
-
-                {/* LOGO */}
-
-                <Link href="/">
-
-                    <div className="flex items-center gap-3">
-
-                        <div className="w-11 h-11 rounded-2xl bg-black flex items-center justify-center text-white">
-
-                            <Sparkles size={20} />
-
-                        </div>
-
-                        <div>
-
-                            <h1 className="text-2xl font-bold text-black leading-none">
-
-                                Buildora
-
-                            </h1>
-
-                            <p className="text-xs text-gray-500 mt-1">
-
-                                AI App Generator
-
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </Link>
-
-                {/* NAV LINKS */}
-
-                <nav className="hidden md:flex items-center gap-10 text-gray-700 font-medium">
-
-                    <a
-                        href="#features"
-                        className="hover:text-black transition"
-                    >
-                        Features
-                    </a>
-
-                    <a
-                        href="#architecture"
-                        className="hover:text-black transition"
-                    >
-                        Architecture
-                    </a>
-
-                    <a
-                        href="#cta"
-                        className="hover:text-black transition"
-                    >
-                        Get Started
-                    </a>
-
-                </nav>
-
-                {/* CTA */}
-
-                <Link
-                    href="/dashboard"
-                >
-
-                    <div
-                        className="
-      bg-black
-      min-w-42.5
-      h-14
-      px-8
-      rounded-2xl
-      flex
-      items-center
-      justify-center
-      shadow-lg
-      hover:scale-105
-      transition-all
-    "
-                    >
-
-                        <span
-                            className="
-        text-white
-        text-lg
-        font-semibold
-        leading-none
-      "
-                        >
-
-                            Dashboard
-
-                        </span>
-
-                    </div>
-
-                </Link>
-
+        {/* LOGO */}
+        <Link href="/">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-lg bg-[#7c3aed] flex items-center justify-center">
+              <Sparkles size={14} className="text-white" />
             </div>
+            <span className="text-sm font-semibold tracking-tight text-white">
+              Buildora
+            </span>
+          </div>
+        </Link>
 
-        </header>
-    );
+        {/* NAV LINKS */}
+        <nav className="hidden md:flex items-center gap-6 text-[#71717a] text-sm">
+          <a href="#features" className="hover:text-white transition">Features</a>
+          <a href="#architecture" className="hover:text-white transition">Architecture</a>
+          <a href="#cta" className="hover:text-white transition">Get started</a>
+        </nav>
+
+        {/* AUTH + CTA */}
+        <div className="flex items-center gap-2">
+          <Link href="/login">
+            <div className="px-4 py-1.5 rounded-lg text-[#71717a] hover:text-white text-sm font-medium transition">
+              Login
+            </div>
+          </Link>
+          <Link href="/signup">
+            <div className="px-4 py-1.5 border border-[#27272a] hover:border-[#3f3f46] hover:bg-[#18181b] rounded-lg text-white text-sm font-medium transition">
+              Sign up
+            </div>
+          </Link>
+          <Link href="/dashboard">
+            <div className="px-4 py-1.5 bg-[#7c3aed] hover:bg-[#6d28d9] rounded-lg text-white text-sm font-medium transition">
+              Dashboard
+            </div>
+          </Link>
+        </div>
+
+      </div>
+    </header>
+  );
 }

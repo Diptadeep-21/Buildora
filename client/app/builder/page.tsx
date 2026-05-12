@@ -12,17 +12,23 @@ import { AppConfig } from "@/types/config.types";
 import { validateConfig } from "@/lib/configValidator";
 
 export default function BuilderPage() {
+
     const [config, setConfig] =
         useState<AppConfig | null>(null);
 
+    /*
+      STORE RECORDS ENTITY-WISE
+    */
+
     const [records, setRecords] =
-        useState<any[]>([]);
+        useState<Record<string, any[]>>({});
 
     /*
       LOAD SAVED DATA
     */
 
     useEffect(() => {
+
         const generatedConfig =
             localStorage.getItem(
                 "generatedConfig"
@@ -41,21 +47,31 @@ export default function BuilderPage() {
                 "generatedConfig"
             );
         }
+
         const savedConfig =
-            localStorage.getItem("appConfig");
+            localStorage.getItem(
+                "appConfig"
+            );
 
         const savedRecords =
-            localStorage.getItem("records");
+            localStorage.getItem(
+                "records"
+            );
 
         if (savedConfig) {
-            setConfig(JSON.parse(savedConfig));
+
+            setConfig(
+                JSON.parse(savedConfig)
+            );
         }
 
         if (savedRecords) {
+
             setRecords(
                 JSON.parse(savedRecords)
             );
         }
+
     }, []);
 
     /*
@@ -63,10 +79,12 @@ export default function BuilderPage() {
     */
 
     useEffect(() => {
+
         localStorage.setItem(
             "records",
             JSON.stringify(records)
         );
+
     }, [records]);
 
     /*
@@ -74,12 +92,15 @@ export default function BuilderPage() {
     */
 
     useEffect(() => {
+
         if (config) {
+
             localStorage.setItem(
                 "appConfig",
                 JSON.stringify(config)
             );
         }
+
     }, [config]);
 
     /*
@@ -89,12 +110,22 @@ export default function BuilderPage() {
     const handleConfigLoad = (
         uploadedConfig: AppConfig
     ) => {
+
         try {
-            validateConfig(uploadedConfig);
 
-            setConfig(uploadedConfig);
+            validateConfig(
+                uploadedConfig
+            );
 
-            setRecords([]);
+            setConfig(
+                uploadedConfig
+            );
+
+            /*
+              RESET RECORDS
+            */
+
+            setRecords({});
 
             localStorage.removeItem(
                 "records"
@@ -103,8 +134,12 @@ export default function BuilderPage() {
             alert(
                 "Config Loaded Successfully"
             );
+
         } catch (error: any) {
-            alert(error.message);
+
+            alert(
+                error.message
+            );
         }
     };
 
@@ -113,19 +148,36 @@ export default function BuilderPage() {
     */
 
     const handleSubmit = (
+        entityName: string,
         data: any
     ) => {
-        setRecords((prev) => [
+
+        setRecords((prev) => ({
+
             ...prev,
-            data,
-        ]);
+
+            [entityName]: [
+
+                ...(prev[entityName] || []),
+
+                data,
+            ],
+        }));
     };
 
     return (
+
         <main className="min-h-screen bg-slate-950 text-white p-8">
+
+            {/* PAGE TITLE */}
+
             <h1 className="text-4xl font-bold mb-8">
+
                 AI App Generator
+
             </h1>
+
+            {/* CONFIG UPLOADER */}
 
             <ConfigUploader
                 onConfigLoad={
@@ -133,56 +185,97 @@ export default function BuilderPage() {
                 }
             />
 
+            {/* GENERATED APP */}
+
             {config ? (
+
                 <div className="mt-10">
-                    <h2 className="text-3xl font-bold mb-6">
+
+                    {/* APP NAME */}
+
+                    <h2 className="text-3xl font-bold mb-10">
+
                         {config.appName}
+
                     </h2>
 
-                    {config.pages.map((page) => (
+                    {/* PAGES */}
 
-                        <div
-                            key={page.route}
-                            className="mb-16"
-                        >
+                    {config.pages.map(
+                        (page, index) => (
 
-                            <h2 className="text-2xl font-bold mb-6">
-                                {page.name}
-                            </h2>
+                            <div
+                                key={
+                                    page.name || index
+                                }
 
-                            {page.entities.map(
-                                (entity) => (
+                                className="mb-20"
+                            >
 
-                                    <div
-                                        key={entity.name}
-                                        className="grid md:grid-cols-2 gap-8 mb-12"
-                                    >
+                                {/* PAGE TITLE */}
 
-                                        <DynamicForm
-                                            entity={entity}
-                                            onSubmit={
-                                                handleSubmit
-                                            }
-                                        />
+                                <h2 className="text-2xl font-bold mb-8">
 
-                                        <DynamicTable
-                                            entity={entity}
-                                            records={records}
-                                        />
+                                    {page.name}
 
-                                    </div>
-                                )
-                            )}
+                                </h2>
 
-                        </div>
-                    ))}
+                                {/* ENTITIES */}
+
+                                {page.entities.map(
+                                    (entity) => (
+
+                                        <div
+                                            key={entity.name}
+
+                                            className="
+                                                grid
+                                                md:grid-cols-2
+                                                gap-10
+                                                mb-14
+                                            "
+                                        >
+
+                                            {/* FORM */}
+
+                                            <DynamicForm
+                                                entity={entity}
+
+                                               onSubmit={handleSubmit}
+                                            />
+
+                                            {/* TABLE */}
+
+                                            <DynamicTable
+                                                entity={entity}
+
+                                                records={
+                                                    records[
+                                                        entity.name
+                                                    ] || []
+                                                }
+                                            />
+
+                                        </div>
+                                    )
+                                )}
+
+                            </div>
+                        )
+                    )}
+
                 </div>
+
             ) : (
-                <div className="mt-10 text-gray-400">
+
+                <div className="mt-10 text-gray-400 text-lg">
+
                     Upload a JSON config
-                    to generate app
+                    to generate your app.
+
                 </div>
             )}
+
         </main>
     );
 }

@@ -81,6 +81,7 @@ export default function GeneratedAppPage() {
 
     const handleSubmit =
         async (
+            entityName: string,
             data: any
         ) => {
 
@@ -88,19 +89,17 @@ export default function GeneratedAppPage() {
 
                 await API.post(
                     "/records",
-                    {
-                        entityName:
-                            config.config
-                                .pages[0]
-                                .entities[0]
-                                .name,
 
+                    {
+                        entityName,
                         data,
                     }
                 );
 
                 setRecords((prev) => [
+
                     ...prev,
+
                     data,
                 ]);
 
